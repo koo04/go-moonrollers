@@ -32,7 +32,7 @@ func (c *Crew) Render(selectedObj int) string {
 		line := ""
 		line += objective.Type.Abbr()
 		if objective.Hazard {
-			line += lipgloss.NewStyle().Foreground(lipgloss.Color("#ff0000")).Render("*")
+			line += lipgloss.NewStyle().Foreground(lipgloss.Color("#ff0000")).Render("!")
 		} else {
 			line += " "
 		}
@@ -43,17 +43,11 @@ func (c *Crew) Render(selectedObj int) string {
 		content = append(content, line)
 	}
 
-	bPadding := 1
-	if len(c.Objectives) < 4 {
-		bPadding += 1
-	}
-
-	rPadding := 0
-	maxWidth := 11
-	rPadding = maxWidth - max(lipgloss.Width(strings.Join(content, "\n")), lipgloss.Width(c.RenderName()))
-
 	return lipgloss.NewStyle().
 		Border(lipgloss.NormalBorder()).
-		BorderForeground(factionColors[c.Faction]).
-		Padding(0, rPadding, bPadding, 0).Render(strings.Join(content, "\n"))
+		Width(11).
+		Height(7).
+		Padding(0, 0, 0, 1).
+		BorderForeground(lipgloss.Color(factionColors[c.Faction])).
+		Render(strings.Join(content, "\n"))
 }
