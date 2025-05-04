@@ -25,15 +25,6 @@ func (c *Crew) RenderName() string {
 }
 
 func (c *Crew) Render(selectedObj int) string {
-	bPadding := 0
-	if len(c.Objectives) < 4 {
-		bPadding = 1
-	}
-	pane := lipgloss.NewStyle().
-		Border(lipgloss.NormalBorder()).
-		BorderForeground(lipgloss.Color(factionColors[c.Faction])).
-		Padding(0, max(len(c.Name)-10, len(c.Objectives)+3), bPadding, 0)
-
 	content := make([]string, 0)
 	content = append(content, c.RenderName()+"\n")
 
@@ -52,5 +43,17 @@ func (c *Crew) Render(selectedObj int) string {
 		content = append(content, line)
 	}
 
-	return pane.Render(strings.Join(content, "\n"))
+	bPadding := 1
+	if len(c.Objectives) < 4 {
+		bPadding += 1
+	}
+
+	rPadding := 0
+	maxWidth := 11
+	rPadding = maxWidth - max(lipgloss.Width(strings.Join(content, "\n")), lipgloss.Width(c.RenderName()))
+
+	return lipgloss.NewStyle().
+		Border(lipgloss.NormalBorder()).
+		BorderForeground(lipgloss.Color(factionColors[c.Faction])).
+		Padding(0, rPadding, bPadding, 0).Render(strings.Join(content, "\n"))
 }
