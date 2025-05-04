@@ -24,7 +24,7 @@ var deck = []*Crew{
 				Amount: 2,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If your rolling pool is 1-3 dice, each %reactor% or %wild% locked this roll is treated as 2 %reactors%."},
 	},
 	{
 		Name:    "Vila",
@@ -48,7 +48,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If you roll no %reactors% you may re-roll 2 dice."},
 	},
 	{
 		Name:    "Salatar",
@@ -73,7 +73,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If you roll no %reactors% you may re-roll 2 dice."},
 	},
 	{
 		Name:    "Ada",
@@ -93,7 +93,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "May lock each %extra% as 2 %reactors%."},
 		Starter: true,
 	},
 	{
@@ -119,7 +119,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If you roll exactly 1 %reactor% you may lock it as %wild%."},
 	},
 	{
 		Name:    "Lila",
@@ -144,7 +144,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If you roll 2+ %reactors% you may re-roll any number of dice."},
 	},
 	{
 		Name:    "[REDACTED]",
@@ -168,7 +168,7 @@ var deck = []*Crew{
 				Amount: 2,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If your rolling pool is 1-3 dice, each %shield% or %wild% locked this roll is treated as 2 %shields%."},
 	},
 	{
 		Name:    "Imdar",
@@ -192,7 +192,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If you roll no %shields% you may draw 1 %hazard%."},
 	},
 	{
 		Name:    "Namari",
@@ -217,7 +217,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "Gain 2 Prestige after busting."},
 	},
 	{
 		Name:    "Ryle",
@@ -236,7 +236,7 @@ var deck = []*Crew{
 				Amount: 1,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "May lock each %extra% as 2 %shields%."},
 		Starter: true,
 	},
 	{
@@ -262,7 +262,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If you roll exactly 1 %shield% you may lock it as %wild%."},
 	},
 	{
 		Name:    "AT-OK",
@@ -287,7 +287,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If you roll 2+ %shields% you cannot bust on your next roll."},
 	},
 	{
 		Name:    "Dr.Umbrage",
@@ -311,7 +311,7 @@ var deck = []*Crew{
 				Amount: 2,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If your rolling pool is 1-3 dice, each %damage% or %wild% locked this roll is treated as 2 %damage%."},
 	},
 	{
 		Name:    "Saghari",
@@ -335,7 +335,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If you roll no %damage%, roll 1 supply die and keep if %wild% or %extra%."},
 	},
 	{
 		Name:    "Kary",
@@ -360,7 +360,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "Any %damage% from your first roll may be treated as %extra%."},
 	},
 	{
 		Name:    "Dana",
@@ -380,7 +380,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "May lock each %extra% as 2 %damage%."},
 		Starter: true,
 	},
 	{
@@ -406,7 +406,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If you roll exactly 1 %damage% you may lock it as %wild%."},
 	},
 	{
 		Name:    "Ryan",
@@ -431,7 +431,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If you roll 2+ %damage%, roll 2 supply dice and keep any that are %wild%."},
 	},
 	{
 		Name:    "Moro",
@@ -456,7 +456,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If your pool is 1-3 dice, you cannot bust if you roll at least one %extra%."},
 	},
 	{
 		Name:    "Vanta",
@@ -480,7 +480,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If you roll no %extra% you may lock any 1 die as %wild%."},
 	},
 	{
 		Name:    "Meg",
@@ -505,7 +505,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "1 %wild% from your first roll may be saved for your next roll."},
 	},
 	{
 		Name:    "Sella",
@@ -524,7 +524,7 @@ var deck = []*Crew{
 				Amount: 1,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If you roll exactly 1 %extra% you may lock it as %wild%."},
 		Starter: true,
 	},
 	{
@@ -550,7 +550,7 @@ var deck = []*Crew{
 				Amount: 2,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If you roll exactly 1 %wild%, you may treat it as %extra%."},
 	},
 	{
 		Name:    "Avari",
@@ -575,7 +575,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If you roll all %wilds%, gain 3 dice for your next roll."},
 	},
 	{
 		Name:    "Sol",
@@ -600,7 +600,7 @@ var deck = []*Crew{
 				Amount: 2,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If your rolling pool is 1-3 dice, each %thruster% or %wild% locked this roll is treated as 2 %thrusters%."},
 	},
 	{
 		Name:    "B3-AR",
@@ -624,7 +624,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If you roll 3+ %thrusters% finish the current requirement."},
 	},
 	{
 		Name:    "Kal",
@@ -649,7 +649,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "Your rolling pool starts with 6 dice."},
 	},
 	{
 		Name:    "Nella",
@@ -669,7 +669,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "May lock each %extra% as 2 %thrusters%."},
 		Starter: true,
 	},
 	{
@@ -695,7 +695,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If you roll exactly 1 %thruster% you may lock it as %wild%."},
 	},
 	{
 		Name:    "Myla",
@@ -720,7 +720,7 @@ var deck = []*Crew{
 				Hazard: true,
 			},
 		},
-		Ability: ability{},
+		Ability: ability{Description: "If you roll 2+ %thrusters% you may treat 1 of your dice as %extra%."},
 	},
 }
 
