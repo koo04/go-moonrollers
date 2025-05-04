@@ -1,4 +1,4 @@
-package card
+package moonrollers
 
 type faction string
 

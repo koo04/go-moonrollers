@@ -1,25 +1,24 @@
-package main
+package moonrollers
 
 import (
 	"math/rand"
 
 	"github.com/charmbracelet/lipgloss"
-	"github.com/koo04/go-moonrollers/card"
 )
 
-type board struct {
-	Deck []*card.Crew
-	Out  []*card.Crew
+type Board struct {
+	Deck []*Crew
+	Out  []*Crew
 }
 
-func (b *board) ShuffleDeck() {
+func (b *Board) ShuffleDeck() {
 	for i := len(b.Deck) - 1; i > 0; i-- {
 		j := rand.Intn(i + 1)
 		b.Deck[i], b.Deck[j] = b.Deck[j], b.Deck[i]
 	}
 }
 
-func (b *board) DrawCard() {
+func (b *Board) DrawCard() {
 	if len(b.Deck) == 0 {
 		return
 	}
@@ -28,13 +27,13 @@ func (b *board) DrawCard() {
 	b.Out = append(b.Out, card)
 }
 
-func (b *board) DrawCards(n int) {
+func (b *Board) DrawCards(n int) {
 	for range n {
 		b.DrawCard()
 	}
 }
 
-func (b *board) Render() string {
+func (b *Board) Render() string {
 	var renderedCards []string
 	for _, c := range b.Out {
 		renderedCards = append(renderedCards, c.Render(-1))

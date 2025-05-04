@@ -1,4 +1,4 @@
-package card
+package moonrollers
 
 var deck = []*Crew{
 	{
@@ -722,4 +722,8 @@ var deck = []*Crew{
 		},
 		Ability: ability{},
 	},
+}
+
+func GetDeck() []*Crew {
+	return deck
 }

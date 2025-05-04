@@ -1,4 +1,4 @@
-package main
+package moonrollers
 
 import "github.com/charmbracelet/lipgloss"
 

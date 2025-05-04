@@ -3,10 +3,11 @@ package main
 import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+	mr "github.com/koo04/go-moonrollers"
 )
 
 type model struct {
-	board *board
+	board *mr.Board
 
 	height int
 	width  int
@@ -47,9 +48,9 @@ func (m model) View() string {
 }
 
 func main() {
-	b := &board{
-		Deck: deck,
-		Out:  []*card{},
+	b := &mr.Board{
+		Deck: mr.GetDeck(),
+		Out:  []*mr.Crew{},
 	}
 
 	b.ShuffleDeck()

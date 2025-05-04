@@ -1,14 +1,9 @@
-package main
-
-import (
-	"github.com/koo04/go-moonrollers/card"
-	"github.com/koo04/go-moonrollers/player"
-)
+package moonrollers
 
 type turn struct {
 	Id           int
-	Player       *player.Player
-	SelectedCard *card.Crew
+	Player       *Player
+	SelectedCard *Crew
 	Roll         []dieSide
 	RollSize     int
 	DiePoolSize  int
