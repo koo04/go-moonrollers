@@ -7,12 +7,12 @@ import (
 )
 
 type card struct {
-	Name       string
-	Objectives []objective
-	Selected   int
-	Ability    ability
-	Starter    bool
-	Faction    faction
+	Name       string      `json:"name"`
+	Objectives []objective `json:"objectives"`
+	Selected   int         `json:"selected"`
+	Ability    ability     `json:"ability"`
+	Starter    bool        `json:"starter"`
+	Faction    faction     `json:"faction"`
 }
 
 var deck = []*card{
@@ -749,27 +749,31 @@ func (c *card) RenderName() string {
 }
 
 func (c *card) Render(selectedObj int) string {
+	bPadding := 0
+	if len(c.Objectives) < 4 {
+		bPadding = 1
+	}
 	pane := lipgloss.NewStyle().
 		Border(lipgloss.NormalBorder()).
 		BorderForeground(lipgloss.Color(factionColors[c.Faction])).
-		Padding(0, 1)
+		Padding(0, max(len(c.Name)-10, len(c.Objectives)+3), bPadding, 0)
 
 	content := make([]string, 0)
-	content = append(content, c.RenderName())
+	content = append(content, c.RenderName()+"\n")
 
 	for _, objective := range c.Objectives {
-		line := make([]string, 0)
-		line = append(line, objective.Type.Abbr())
+		line := ""
+		line += objective.Type.Abbr()
 		if objective.Hazard {
-			line = append(line, lipgloss.NewStyle().Foreground(lipgloss.Color("#ff0000")).Render("*"))
+			line += lipgloss.NewStyle().Foreground(lipgloss.Color("#ff0000")).Render("*")
 		} else {
-			line = append(line, " ")
+			line += " "
 		}
 		for range objective.Amount {
-			line = append(line, "o")
+			line += "o"
 		}
 
-		content = append(content, strings.Join(line, ""))
+		content = append(content, line)
 	}
 
 	return pane.Render(strings.Join(content, "\n"))

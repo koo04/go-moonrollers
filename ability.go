@@ -1,3 +1,5 @@
 package main
 
-type ability struct{}
+type ability struct {
+	Description string `json:"description"`
+}
