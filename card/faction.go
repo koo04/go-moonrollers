@@ -1,4 +1,4 @@
-package main
+package card
 
 type faction string
 

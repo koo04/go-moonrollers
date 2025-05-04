@@ -1,4 +1,4 @@
-package main
+package card
 
 import "github.com/charmbracelet/lipgloss"
 
@@ -13,10 +13,9 @@ const (
 )
 
 type objective struct {
-	Type         objectiveType
-	Amount       int
-	Hazard       bool
-	WhoCompleted *player
+	Type   objectiveType
+	Amount int
+	Hazard bool
 }
 
 func (ot objectiveType) Abbr() string {

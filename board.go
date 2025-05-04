@@ -4,11 +4,12 @@ import (
 	"math/rand"
 
 	"github.com/charmbracelet/lipgloss"
+	"github.com/koo04/go-moonrollers/card"
 )
 
 type board struct {
-	Deck []*card
-	Out  []*card
+	Deck []*card.Crew
+	Out  []*card.Crew
 }
 
 func (b *board) ShuffleDeck() {
