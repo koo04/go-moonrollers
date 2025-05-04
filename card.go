@@ -1,10 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"strings"
 
-	"github.com/fatih/color"
+	"github.com/charmbracelet/lipgloss"
 )
 
 type card struct {
@@ -13,11 +12,13 @@ type card struct {
 	Selected   int
 	Ability    ability
 	Starter    bool
+	Faction    faction
 }
 
 var deck = []*card{
 	{
-		Name: "Aponi",
+		Name:    "Aponi",
+		Faction: FactionTypeBlue,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeReactor,
@@ -41,7 +42,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Vila",
+		Name:    "Vila",
+		Faction: FactionTypeBlue,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeReactor,
@@ -64,7 +66,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Salatar",
+		Name:    "Salatar",
+		Faction: FactionTypeBlue,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeReactor,
@@ -88,7 +91,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Ada",
+		Name:    "Ada",
+		Faction: FactionTypeBlue,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeReactor,
@@ -108,7 +112,8 @@ var deck = []*card{
 		Starter: true,
 	},
 	{
-		Name: "Lee",
+		Name:    "Lee",
+		Faction: FactionTypeBlue,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeReactor,
@@ -132,7 +137,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Lila",
+		Name:    "Lila",
+		Faction: FactionTypeBlue,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeReactor,
@@ -156,7 +162,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "[REDACTED]",
+		Name:    "[REDACTED]",
+		Faction: FactionTypeGreen,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeShield,
@@ -179,7 +186,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Imdar",
+		Name:    "Imdar",
+		Faction: FactionTypeGreen,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeShield,
@@ -202,7 +210,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Namari",
+		Name:    "Namari",
+		Faction: FactionTypeGreen,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeShield,
@@ -226,7 +235,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Ryle",
+		Name:    "Ryle",
+		Faction: FactionTypeGreen,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeShield,
@@ -245,7 +255,8 @@ var deck = []*card{
 		Starter: true,
 	},
 	{
-		Name: "Bill",
+		Name:    "Bill",
+		Faction: FactionTypeGreen,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeShield,
@@ -269,7 +280,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "AT-OK",
+		Name:    "AT-OK",
+		Faction: FactionTypeGreen,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeShield,
@@ -293,7 +305,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Dr.Umbrage",
+		Name:    "Dr.Umbrage",
+		Faction: FactionTypeOrange,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeDamage,
@@ -316,7 +329,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Saghari",
+		Name:    "Saghari",
+		Faction: FactionTypeOrange,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeDamage,
@@ -339,7 +353,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Kary",
+		Name:    "Kary",
+		Faction: FactionTypeOrange,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeDamage,
@@ -363,7 +378,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Dana",
+		Name:    "Dana",
+		Faction: FactionTypeOrange,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeDamage,
@@ -383,7 +399,8 @@ var deck = []*card{
 		Starter: true,
 	},
 	{
-		Name: "Tantin",
+		Name:    "Tantin",
+		Faction: FactionTypeOrange,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeDamage,
@@ -407,7 +424,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Ryan",
+		Name:    "Ryan",
+		Faction: FactionTypeOrange,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeDamage,
@@ -431,7 +449,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Moro",
+		Name:    "Moro",
+		Faction: FactionTypePurple,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeReactor,
@@ -455,7 +474,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Vanta",
+		Name:    "Vanta",
+		Faction: FactionTypePurple,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeWild,
@@ -478,7 +498,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Meg",
+		Name:    "Meg",
+		Faction: FactionTypePurple,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeThruster,
@@ -502,7 +523,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Sella",
+		Name:    "Sella",
+		Faction: FactionTypePurple,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeThruster,
@@ -521,7 +543,8 @@ var deck = []*card{
 		Starter: true,
 	},
 	{
-		Name: "FT-1000",
+		Name:    "FT-1000",
+		Faction: FactionTypePurple,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeShield,
@@ -545,7 +568,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Avari",
+		Name:    "Avari",
+		Faction: FactionTypePurple,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeDamage,
@@ -569,7 +593,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Sol",
+		Name:    "Sol",
+		Faction: FactionTypeYellow,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeThruster,
@@ -593,7 +618,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "B3-AR",
+		Name:    "B3-AR",
+		Faction: FactionTypeYellow,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeThruster,
@@ -616,7 +642,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Kal",
+		Name:    "Kal",
+		Faction: FactionTypeYellow,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeThruster,
@@ -640,7 +667,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Nella",
+		Name:    "Nella",
+		Faction: FactionTypeYellow,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeThruster,
@@ -660,7 +688,8 @@ var deck = []*card{
 		Starter: true,
 	},
 	{
-		Name: "Zek",
+		Name:    "Zek",
+		Faction: FactionTypeYellow,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeThruster,
@@ -684,7 +713,8 @@ var deck = []*card{
 		Ability: ability{},
 	},
 	{
-		Name: "Myla",
+		Name:    "Myla",
+		Faction: FactionTypeYellow,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeThruster,
@@ -709,44 +739,38 @@ var deck = []*card{
 	},
 }
 
+func (c *card) RenderName() string {
+	style := lipgloss.NewStyle().
+		Foreground(lipgloss.Color(c.Faction.color)).
+		Italic(true).
+		Bold(true)
+
+	return style.Render(c.Name)
+}
+
 func (c *card) Render(selectedObj int) string {
-	extraWidth := 0
-	if len(c.Name) < 10 {
-		extraWidth = 10 - len(c.Name)
-	}
+	pane := lipgloss.NewStyle().
+		Border(lipgloss.NormalBorder()).
+		BorderForeground(lipgloss.Color(c.Faction.color)).
+		Padding(0, 1)
 
-	top := "┌──────────┐\n"
-	name := fmt.Sprintf("│%s│\n", c.Name+strings.Repeat(" ", extraWidth))
-	midTop := "│          │\n"
-	midBot := "\n│          │\n"
-	bottom := "└──────────┘"
+	content := make([]string, 0)
+	content = append(content, c.RenderName())
 
-	objectives := make([]string, len(c.Objectives))
-	for i, o := range c.Objectives {
-		h := fmt.Sprintf("%s%d", o.Type.Abbr(), o.Amount)
-		if o.Hazard {
-			h += color.RedString("*")
+	for _, objective := range c.Objectives {
+		line := make([]string, 0)
+		line = append(line, objective.Type.Abbr())
+		if objective.Hazard {
+			line = append(line, lipgloss.NewStyle().Foreground(lipgloss.Color("#ff0000")).Render("*"))
 		} else {
-			h += " "
+			line = append(line, " ")
 		}
-		if selectedObj == i {
-			h += " <"
-		}
-		length := len(h)
-		if o.Hazard {
-			length -= 9
-		}
-		leftOver := 8 - length
-		if leftOver > 0 {
-			h += strings.Repeat(" ", leftOver)
+		for range objective.Amount {
+			line = append(line, "o")
 		}
 
-		objectives[i] = fmt.Sprintf("│ %s │", h)
+		content = append(content, strings.Join(line, ""))
 	}
 
-	if len(objectives) < 4 {
-		objectives = append(objectives, "│          │")
-	}
-
-	return top + name + midTop + strings.Join(objectives, "\n") + midBot + bottom
+	return pane.Render(strings.Join(content, "\n"))
 }

@@ -36,13 +36,14 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m model) View() string {
 	style := lipgloss.NewStyle().Width(m.width).Height(m.height).Align(lipgloss.Center)
 
-	// cardsPane := stylePool().Render(m.board.Render())
+	cardsPane := style.Render(m.board.Render())
 
-	// panes := lipgloss.JoinVertical(
-	// 	lipgloss.Center,
-	// 	cardsPane,
-	// )
-	return m.board.Render(style)
+	panes := lipgloss.JoinVertical(
+		lipgloss.Center,
+		cardsPane,
+	)
+
+	return panes
 }
 
 func main() {
