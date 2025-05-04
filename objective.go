@@ -1,5 +1,7 @@
 package main
 
+import "github.com/charmbracelet/lipgloss"
+
 type objectiveType string
 
 const (
@@ -20,15 +22,15 @@ type objective struct {
 func (ot objectiveType) Abbr() string {
 	switch ot {
 	case ObjectiveTypeDamage:
-		return "D"
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(colors["orange"])).Render("X ")
 	case ObjectiveTypeShield:
-		return "S"
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(colors["green"])).Render("# ")
 	case ObjectiveTypeThruster:
-		return "T"
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(colors["yellow"])).Render("> ")
 	case ObjectiveTypeReactor:
-		return "R"
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(colors["blue"])).Render("@ ")
 	case ObjectiveTypeWild:
-		return "W"
+		return lipgloss.NewStyle().Foreground(lipgloss.Color(colors["white"])).Render("% ")
 	default:
 		return ""
 	}
