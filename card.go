@@ -18,7 +18,7 @@ type card struct {
 var deck = []*card{
 	{
 		Name:    "Aponi",
-		Faction: FactionTypeBlue,
+		Faction: FactionBlue,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeReactor,
@@ -43,7 +43,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Vila",
-		Faction: FactionTypeBlue,
+		Faction: FactionBlue,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeReactor,
@@ -67,7 +67,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Salatar",
-		Faction: FactionTypeBlue,
+		Faction: FactionBlue,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeReactor,
@@ -92,7 +92,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Ada",
-		Faction: FactionTypeBlue,
+		Faction: FactionBlue,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeReactor,
@@ -113,7 +113,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Lee",
-		Faction: FactionTypeBlue,
+		Faction: FactionBlue,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeReactor,
@@ -138,7 +138,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Lila",
-		Faction: FactionTypeBlue,
+		Faction: FactionBlue,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeReactor,
@@ -163,7 +163,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "[REDACTED]",
-		Faction: FactionTypeGreen,
+		Faction: FactionGreen,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeShield,
@@ -187,7 +187,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Imdar",
-		Faction: FactionTypeGreen,
+		Faction: FactionGreen,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeShield,
@@ -211,7 +211,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Namari",
-		Faction: FactionTypeGreen,
+		Faction: FactionGreen,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeShield,
@@ -236,7 +236,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Ryle",
-		Faction: FactionTypeGreen,
+		Faction: FactionGreen,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeShield,
@@ -256,7 +256,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Bill",
-		Faction: FactionTypeGreen,
+		Faction: FactionGreen,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeShield,
@@ -281,7 +281,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "AT-OK",
-		Faction: FactionTypeGreen,
+		Faction: FactionGreen,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeShield,
@@ -306,7 +306,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Dr.Umbrage",
-		Faction: FactionTypeOrange,
+		Faction: FactionOrange,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeDamage,
@@ -330,7 +330,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Saghari",
-		Faction: FactionTypeOrange,
+		Faction: FactionOrange,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeDamage,
@@ -354,7 +354,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Kary",
-		Faction: FactionTypeOrange,
+		Faction: FactionOrange,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeDamage,
@@ -379,7 +379,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Dana",
-		Faction: FactionTypeOrange,
+		Faction: FactionOrange,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeDamage,
@@ -400,7 +400,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Tantin",
-		Faction: FactionTypeOrange,
+		Faction: FactionOrange,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeDamage,
@@ -425,7 +425,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Ryan",
-		Faction: FactionTypeOrange,
+		Faction: FactionOrange,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeDamage,
@@ -450,7 +450,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Moro",
-		Faction: FactionTypePurple,
+		Faction: FactionPurple,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeReactor,
@@ -475,7 +475,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Vanta",
-		Faction: FactionTypePurple,
+		Faction: FactionPurple,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeWild,
@@ -499,7 +499,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Meg",
-		Faction: FactionTypePurple,
+		Faction: FactionPurple,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeThruster,
@@ -524,7 +524,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Sella",
-		Faction: FactionTypePurple,
+		Faction: FactionPurple,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeThruster,
@@ -544,7 +544,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "FT-1000",
-		Faction: FactionTypePurple,
+		Faction: FactionPurple,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeShield,
@@ -569,7 +569,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Avari",
-		Faction: FactionTypePurple,
+		Faction: FactionPurple,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeDamage,
@@ -594,7 +594,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Sol",
-		Faction: FactionTypeYellow,
+		Faction: FactionYellow,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeThruster,
@@ -619,7 +619,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "B3-AR",
-		Faction: FactionTypeYellow,
+		Faction: FactionYellow,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeThruster,
@@ -643,7 +643,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Kal",
-		Faction: FactionTypeYellow,
+		Faction: FactionYellow,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeThruster,
@@ -668,7 +668,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Nella",
-		Faction: FactionTypeYellow,
+		Faction: FactionYellow,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeThruster,
@@ -689,7 +689,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Zek",
-		Faction: FactionTypeYellow,
+		Faction: FactionYellow,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeThruster,
@@ -714,7 +714,7 @@ var deck = []*card{
 	},
 	{
 		Name:    "Myla",
-		Faction: FactionTypeYellow,
+		Faction: FactionYellow,
 		Objectives: []objective{
 			{
 				Type:   ObjectiveTypeThruster,
@@ -741,7 +741,7 @@ var deck = []*card{
 
 func (c *card) RenderName() string {
 	style := lipgloss.NewStyle().
-		Foreground(lipgloss.Color(c.Faction.color)).
+		Foreground(lipgloss.Color(factionColors[c.Faction])).
 		Italic(true).
 		Bold(true)
 
@@ -751,7 +751,7 @@ func (c *card) RenderName() string {
 func (c *card) Render(selectedObj int) string {
 	pane := lipgloss.NewStyle().
 		Border(lipgloss.NormalBorder()).
-		BorderForeground(lipgloss.Color(c.Faction.color)).
+		BorderForeground(lipgloss.Color(factionColors[c.Faction])).
 		Padding(0, 1)
 
 	content := make([]string, 0)
