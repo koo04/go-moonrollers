@@ -33,12 +33,12 @@ func (b *board) DrawCards(n int) {
 	}
 }
 
-func (b *board) Render() string {
+func (b *board) Render(style lipgloss.Style) string {
 	var renderedCards []string
 	for _, c := range b.Out {
 		renderedCards = append(renderedCards, c.Render(-1))
 	}
 
 	// Use lipgloss to join the cards horizontally
-	return lipgloss.JoinHorizontal(lipgloss.Top, renderedCards...)
+	return style.Render(lipgloss.JoinHorizontal(lipgloss.Top, renderedCards...))
 }

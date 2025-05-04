@@ -748,7 +748,5 @@ func (c *card) Render(selectedObj int) string {
 		objectives = append(objectives, "│          │")
 	}
 
-	return stylePool().Render(
-		top + name + midTop + strings.Join(objectives, "\n") + midBot + bottom,
-	)
+	return top + name + midTop + strings.Join(objectives, "\n") + midBot + bottom
 }

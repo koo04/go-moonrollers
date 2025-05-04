@@ -2,9 +2,9 @@ package main
 
 import "github.com/charmbracelet/lipgloss"
 
-func stylePool() lipgloss.Style {
+func stylePool(w, h int) lipgloss.Style {
 	return lipgloss.NewStyle().
-		Width(36).
-		Height(10).
+		Width(w).
+		Height(h).
 		Align(lipgloss.Center)
 }

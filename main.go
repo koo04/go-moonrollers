@@ -2,6 +2,7 @@ package main
 
 import (
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 )
 
 type model struct {
@@ -33,7 +34,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m model) View() string {
-	// style := lipgloss.NewStyle().Width(m.width).Height(m.height).Align(lipgloss.Center)
+	style := lipgloss.NewStyle().Width(m.width).Height(m.height).Align(lipgloss.Center)
 
 	// cardsPane := stylePool().Render(m.board.Render())
 
@@ -41,7 +42,7 @@ func (m model) View() string {
 	// 	lipgloss.Center,
 	// 	cardsPane,
 	// )
-	return m.board.Render()
+	return m.board.Render(style)
 }
 
 func main() {
