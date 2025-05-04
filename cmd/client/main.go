@@ -35,13 +35,30 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m model) View() string {
-	style := lipgloss.NewStyle().Width(m.width).Height(m.height).Align(lipgloss.Center)
+	style := lipgloss.NewStyle().Width(m.width).Align(lipgloss.Center)
 
 	cardsPane := style.Render(m.board.Render())
+
+	tempDice := lipgloss.JoinHorizontal(
+		lipgloss.Top,
+		mr.Die["damage"],
+		mr.Die["thruster"],
+		mr.Die["shield"],
+		mr.Die["add"],
+		mr.Die["wild"],
+		mr.Die["reactor"],
+		mr.Die["damage"],
+		mr.Die["thruster"],
+		mr.Die["shield"],
+		mr.Die["add"],
+		mr.Die["wild"],
+		mr.Die["reactor"],
+	)
 
 	panes := lipgloss.JoinVertical(
 		lipgloss.Center,
 		cardsPane,
+		tempDice,
 	)
 
 	return panes

@@ -21,13 +21,13 @@ type objective struct {
 func (ot objectiveType) Abbr() string {
 	switch ot {
 	case ObjectiveTypeDamage:
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(factionColors[FactionOrange])).Render("X ")
+		return lipgloss.NewStyle().Foreground(factionColors[FactionOrange]).Render("X ")
 	case ObjectiveTypeShield:
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(factionColors[FactionGreen])).Render("# ")
+		return lipgloss.NewStyle().Foreground(factionColors[FactionGreen]).Render("# ")
 	case ObjectiveTypeThruster:
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(factionColors[FactionYellow])).Render("> ")
+		return lipgloss.NewStyle().Foreground(factionColors[FactionYellow]).Render("> ")
 	case ObjectiveTypeReactor:
-		return lipgloss.NewStyle().Foreground(lipgloss.Color(factionColors[FactionBlue])).Render("@ ")
+		return lipgloss.NewStyle().Foreground(factionColors[FactionBlue]).Render("@ ")
 	case ObjectiveTypeWild:
 		return lipgloss.NewStyle().Foreground(lipgloss.Color("#fff")).Render("% ")
 	default:
