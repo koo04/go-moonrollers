@@ -29,7 +29,7 @@ func (c *Crew) Render(selectedObj int) string {
 	content = append(content, c.RenderName()+"\n")
 
 	for _, objective := range c.Objectives {
-		line := ""
+		line := " "
 		line += objective.Type.Abbr()
 		if objective.Hazard {
 			line += lipgloss.NewStyle().Foreground(lipgloss.Color("#ff0000")).Render("!")
@@ -47,7 +47,6 @@ func (c *Crew) Render(selectedObj int) string {
 		Border(lipgloss.NormalBorder()).
 		Width(11).
 		Height(7).
-		Padding(0, 0, 0, 1).
 		BorderForeground(lipgloss.Color(factionColors[c.Faction])).
 		Render(strings.Join(content, "\n"))
 }
