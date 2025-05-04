@@ -1,5 +1,7 @@
 package moonrollers
 
+import "github.com/charmbracelet/lipgloss"
+
 type faction string
 
 var (
@@ -10,10 +12,10 @@ var (
 	FactionPurple = faction("purple")
 )
 
-var factionColors = map[faction]string{
-	FactionBlue:   "#2677fe",
-	FactionYellow: "#fefe26",
-	FactionOrange: "#CC5500",
-	FactionGreen:  "#23741e",
-	FactionPurple: "#ab19a6",
+var factionColors = map[faction]lipgloss.Color{
+	FactionBlue:   lipgloss.Color("#2677fe"),
+	FactionYellow: lipgloss.Color("#fefe26"),
+	FactionOrange: lipgloss.Color("#CC5500"),
+	FactionGreen:  lipgloss.Color("#23741e"),
+	FactionPurple: lipgloss.Color("#ab19a6"),
 }

@@ -17,7 +17,7 @@ type Crew struct {
 
 func (c *Crew) RenderName() string {
 	style := lipgloss.NewStyle().
-		Foreground(lipgloss.Color(factionColors[c.Faction])).
+		Foreground(factionColors[c.Faction]).
 		Italic(true).
 		Bold(true)
 
