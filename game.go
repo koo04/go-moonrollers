@@ -72,7 +72,6 @@ func (g *Game) FirstRoundDraw(playerCount int) {
 		maxDraw = 5
 	}
 
-	// keep drawing until we have 5 cards of different factions
 	onTheSide := make([]*Crew, 0)
 	for len(g.Out) < maxDraw {
 		card := g.Deck[0]
@@ -90,12 +89,21 @@ func (g *Game) FirstRoundDraw(playerCount int) {
 }
 
 func (g *Game) RenderCards() string {
-	var renderedCards []string
-	for _, c := range g.Out {
-		renderedCards = append(renderedCards, c.Render(-1))
+	rowOne := []string{}
+	rowTwo := []string{}
+	for i, c := range g.Out {
+		if i < 3 {
+			rowOne = append(rowOne, c.Render(-1))
+			continue
+		}
+
+		rowTwo = append(rowTwo, c.Render(-1))
 	}
 
-	return lipgloss.JoinHorizontal(lipgloss.Top, renderedCards...)
+	renderedCardsRowOne := lipgloss.JoinHorizontal(lipgloss.Left, rowOne...)
+	renderedCardsRowTwo := lipgloss.JoinHorizontal(lipgloss.Left, rowTwo...)
+
+	return lipgloss.JoinVertical(lipgloss.Top, renderedCardsRowOne, renderedCardsRowTwo)
 }
 
 func (g *Game) RenderPoints() string {
