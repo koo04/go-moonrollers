@@ -26,7 +26,7 @@ type menuModel struct {
 }
 
 func (m menuModel) Init() tea.Cmd {
-	return tea.Tick(3*time.Second, func(t time.Time) tea.Msg {
+	return tea.Tick(time.Second, func(t time.Time) tea.Msg {
 		return tMsg(t)
 	})
 }
@@ -157,8 +157,8 @@ func (m menuModel) View() string {
 
 	menuBaseStyle := lipgloss.NewStyle().Foreground(logoColor).BorderForeground(logoColor).Align(lipgloss.Center)
 
-	logo := menuBaseStyle.Width(m.width).AlignVertical(lipgloss.Bottom).Render(menuLogoV3)
-	title := menuBaseStyle.Border(lipgloss.NormalBorder()).Margin(1).Padding(1, 2).Align(lipgloss.Center).Render("Moon Rollers")
+	logo := menuBaseStyle.Width(m.width / 3).AlignVertical(lipgloss.Center).Render(menuLogoV3)
+	title := menuBaseStyle.Border(lipgloss.NormalBorder()).Margin(1).Padding(1, 2).Align(lipgloss.Center, lipgloss.Center).Render("Moon Rollers")
 	menu := ""
 	for i, choice := range m.choices {
 		sk := strings.Join(choice.shortKeys, "/")
@@ -173,10 +173,17 @@ func (m menuModel) View() string {
 		}
 	}
 
-	return lipgloss.JoinVertical(
+	menuJoin := lipgloss.JoinVertical(
 		lipgloss.Center,
-		logo,
 		title,
 		menuBaseStyle.AlignHorizontal(lipgloss.Left).Render(menu),
+	)
+
+	menuJoin = lipgloss.NewStyle().Width((m.width / 3) * 2).Height(m.height).AlignVertical(lipgloss.Center).Render(menuJoin)
+
+	return lipgloss.JoinHorizontal(
+		lipgloss.Center,
+		logo,
+		menuJoin,
 	)
 }
