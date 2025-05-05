@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
@@ -21,10 +22,13 @@ type menuModel struct {
 	cursor          int
 	numberOfPlayers int
 	choices         []menuChoice
+	splashScreen    bool
 }
 
 func (m menuModel) Init() tea.Cmd {
-	return nil
+	return tea.Tick(3*time.Second, func(t time.Time) tea.Msg {
+		return tMsg(t)
+	})
 }
 
 /*
@@ -38,6 +42,7 @@ func newMenuModel() *menuModel {
 	return &menuModel{
 		cursor:          1,
 		numberOfPlayers: 3,
+		splashScreen:    true,
 		choices: []menuChoice{
 			{
 				s:         "Number of Players",
@@ -74,9 +79,14 @@ func newMenuModel() *menuModel {
 	}
 }
 
+type tMsg time.Time
+
 func (m menuModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
+		if m.splashScreen {
+			return m, nil
+		}
 		switch msg.Type {
 		case tea.KeyEnter:
 			return m.choices[m.cursor].action(m)
@@ -126,6 +136,9 @@ func (m menuModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.WindowSizeMsg:
 		m.height = msg.Height
 		m.width = msg.Width
+	case tMsg:
+		m.splashScreen = false
+		return m, nil
 	}
 
 	return m, nil
@@ -136,11 +149,15 @@ func (m menuModel) View() string {
 		return "Window too small, please resize to something larger."
 	}
 
+	if m.splashScreen {
+		return lipgloss.NewStyle().Align(lipgloss.Center, lipgloss.Center).Width(m.width).Height(m.height).Foreground(lipgloss.Color("#fff")).Render(logo)
+	}
+
 	logoColor := lipgloss.Color("#eb5761ff")
 
 	menuBaseStyle := lipgloss.NewStyle().Foreground(logoColor).BorderForeground(logoColor).Align(lipgloss.Center)
 
-	logo := menuBaseStyle.Width(m.width).AlignVertical(lipgloss.Bottom).Render(mr.MenuLogoV3)
+	logo := menuBaseStyle.Width(m.width).AlignVertical(lipgloss.Bottom).Render(menuLogoV3)
 	title := menuBaseStyle.Border(lipgloss.NormalBorder()).Margin(1).Padding(1, 2).Align(lipgloss.Center).Render("Moon Rollers")
 	menu := ""
 	for i, choice := range m.choices {
