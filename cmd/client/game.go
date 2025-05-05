@@ -36,22 +36,32 @@ func (m gameModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.WindowSizeMsg:
 		m.height = msg.Height
 		m.width = msg.Width
+		return m, nil
 	}
 
 	return m, nil
 }
 
 func (m gameModel) View() string {
-	cardsPaneStyle := lipgloss.NewStyle().Align(lipgloss.Left)
+	cardsPaneStyle := lipgloss.NewStyle().Align(lipgloss.Left).Margin(1)
 	pointsPaneStyle := lipgloss.NewStyle().Width(15).Align(lipgloss.Left).AlignVertical(lipgloss.Center).Border(lipgloss.NormalBorder()).Margin(1)
+	dicePaneStyle := lipgloss.NewStyle().Align(lipgloss.Left).Border(lipgloss.NormalBorder()).Margin(1)
+
+	if debug {
+		cardsPaneStyle = cardsPaneStyle.Border(lipgloss.ASCIIBorder()).BorderForeground(lipgloss.Color("205")).Margin(0)
+		pointsPaneStyle = pointsPaneStyle.Border(lipgloss.ASCIIBorder()).BorderForeground(lipgloss.Color("205")).Margin(0)
+		dicePaneStyle = dicePaneStyle.Border(lipgloss.ASCIIBorder()).BorderForeground(lipgloss.Color("205")).Margin(0)
+	}
 
 	cardsPane := cardsPaneStyle.Render(m.game.RenderCards())
 	pointsPane := pointsPaneStyle.Render(m.game.RenderPoints())
+	dicePane := dicePaneStyle.Render(m.game.RenderDice())
 
 	v := lipgloss.JoinHorizontal(
 		lipgloss.Left,
 		pointsPane,
 		cardsPane,
+		dicePane,
 	)
 	// tempDice := style.Align(lipgloss.Left).Render(lipgloss.JoinHorizontal(
 	// 	lipgloss.Top,

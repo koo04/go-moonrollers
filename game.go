@@ -15,25 +15,46 @@ type Game struct {
 	CurrentPlayer int
 	Deck          []*Crew
 	Out           []*Crew
+	Supply        []*Die
+	Pool          []*Die
 }
 
 func NewGame(playerCount int) *Game {
-
-	players := make([]*Player, 0, playerCount)
-	for range playerCount {
-		players = append(players, NewPlayer("Player "+strconv.Itoa(len(players)+1)))
-	}
 	g := &Game{
 		Id:            1,
-		Players:       players,
 		Turns:         make([]*Turn, 0),
 		CurrentPlayer: 0,
 		Deck:          Deck,
 		Out:           make([]*Crew, 0, 6),
 	}
-	g.FirstRoundDraw(playerCount)
 
-	return g
+	return g.setup(playerCount)
+}
+
+func (g *Game) setup(playerCount int) *Game {
+	players := make([]*Player, 0, playerCount)
+	for range playerCount {
+		players = append(players, NewPlayer("Player "+strconv.Itoa(len(players)+1)))
+	}
+
+	supply := make([]*Die, 0, 7)
+	for range 7 {
+		d := &Die{}
+		d.Roll()
+		supply = append(supply, d)
+	}
+	pool := make([]*Die, 0, 12)
+	for range 5 {
+		d := &Die{}
+		d.Roll()
+		pool = append(pool, d)
+	}
+
+	g.Players = players
+	g.Supply = supply
+	g.Pool = pool
+
+	return g.FirstRoundDraw(playerCount)
 }
 
 func (g *Game) shuffleDeck() {
@@ -61,7 +82,7 @@ func hasFaction(s []*Crew, c2 *Crew) bool {
 	return false
 }
 
-func (g *Game) FirstRoundDraw(playerCount int) {
+func (g *Game) FirstRoundDraw(playerCount int) *Game {
 	g.shuffleDeck()
 
 	maxDraw := 6
@@ -72,11 +93,11 @@ func (g *Game) FirstRoundDraw(playerCount int) {
 		maxDraw = 5
 	}
 
-	onTheSide := make([]*Crew, 0)
+	unused := make([]*Crew, 0)
 	for len(g.Out) < maxDraw {
 		card := g.Deck[0]
 		if hasFaction(g.Out, card) && len(g.Out) < 5 {
-			onTheSide = append(onTheSide, card)
+			unused = append(unused, card)
 			g.Deck = slices.Delete(g.Deck, 0, 1)
 			continue
 		}
@@ -84,8 +105,10 @@ func (g *Game) FirstRoundDraw(playerCount int) {
 		g.Deck = slices.Delete(g.Deck, 0, 1)
 	}
 
-	g.Deck = append(g.Deck, onTheSide...)
+	g.Deck = append(g.Deck, unused...)
 	g.shuffleDeck()
+
+	return g
 }
 
 func (g *Game) RenderCards() string {
@@ -113,4 +136,55 @@ func (g *Game) RenderPoints() string {
 	}
 
 	return lipgloss.JoinVertical(lipgloss.Left, out...)
+}
+
+func (g *Game) RenderDice() string {
+	supplyRender := lipgloss.NewStyle().AlignVertical(lipgloss.Left).MarginRight(5)
+	poolRender := lipgloss.NewStyle().AlignVertical(lipgloss.Center)
+
+	return lipgloss.JoinHorizontal(
+		lipgloss.Top,
+		supplyRender.Render(g.RenderSupply()),
+		poolRender.Render(g.RenderPool()),
+	)
+}
+
+func (g *Game) RenderSupply() string {
+	return g.renderDieGroup(g.Supply, 3)
+}
+
+func (g *Game) RenderPool() string {
+	return g.renderDieGroup(g.Pool, 4)
+}
+
+func (g *Game) renderDieGroup(dieGroup []*Die, maxWidth int) string {
+	rowOne := make([]string, 0, maxWidth)
+	rowTwo := make([]string, 0, maxWidth)
+	rowThree := make([]string, 0, maxWidth)
+	for i, d := range dieGroup {
+		if d == nil {
+			continue
+		}
+
+		if i < maxWidth {
+			rowOne = append(rowOne, d.Render())
+			continue
+		}
+		if i < maxWidth*2 {
+			rowTwo = append(rowTwo, d.Render())
+			continue
+		}
+		rowThree = append(rowThree, d.Render())
+	}
+
+	renderedRowOne := lipgloss.JoinHorizontal(lipgloss.Left, rowOne...)
+	renderedRowTwo := lipgloss.JoinHorizontal(lipgloss.Left, rowTwo...)
+	renderedRowThree := lipgloss.JoinHorizontal(lipgloss.Left, rowThree...)
+
+	return lipgloss.JoinVertical(
+		lipgloss.Left,
+		renderedRowOne,
+		renderedRowTwo,
+		renderedRowThree,
+	)
 }
