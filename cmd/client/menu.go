@@ -116,7 +116,7 @@ func (m menuModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.numberOfPlayers--
 			}
 		case tea.KeyRight:
-			if m.numberOfPlayers < 6 {
+			if m.numberOfPlayers < 5 {
 				m.numberOfPlayers++
 			}
 		default:
@@ -126,7 +126,7 @@ func (m menuModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				}
 			}
 			if msg.String() == "+" {
-				if m.numberOfPlayers < 6 {
+				if m.numberOfPlayers < 5 {
 					m.numberOfPlayers++
 				}
 			}
