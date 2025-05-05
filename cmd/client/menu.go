@@ -112,7 +112,7 @@ func (m menuModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.cursor++
 			}
 		case tea.KeyLeft:
-			if m.numberOfPlayers > 1 {
+			if m.numberOfPlayers > 2 {
 				m.numberOfPlayers--
 			}
 		case tea.KeyRight:
@@ -120,17 +120,6 @@ func (m menuModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.numberOfPlayers++
 			}
 		default:
-			if msg.String() == "-" {
-				if m.numberOfPlayers > 1 {
-					m.numberOfPlayers--
-				}
-			}
-			if msg.String() == "+" {
-				if m.numberOfPlayers < 5 {
-					m.numberOfPlayers++
-				}
-			}
-
 			return m, nil
 		}
 	case tea.WindowSizeMsg:
