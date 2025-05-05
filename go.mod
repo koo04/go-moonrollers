@@ -1,4 +1,4 @@
-module github.com/koo04/go-moonrollers
+module github.com/ascii-arcade/moonrollers
 
 go 1.24.2
 

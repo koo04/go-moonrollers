@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"math/rand"
 
+	mr "github.com/ascii-arcade/moonrollers"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	mr "github.com/koo04/go-moonrollers"
 )
 
 type gameModel struct {
