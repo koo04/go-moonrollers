@@ -140,7 +140,7 @@ func (m menuModel) View() string {
 
 	menuBaseStyle := lipgloss.NewStyle().Foreground(logoColor).BorderForeground(logoColor).Align(lipgloss.Center)
 
-	logo := menuBaseStyle.Width(m.width).Render(mr.MenuLogo)
+	logo := menuBaseStyle.Width(m.width).AlignVertical(lipgloss.Bottom).Render(mr.MenuLogoV3)
 	title := menuBaseStyle.Border(lipgloss.NormalBorder()).Margin(1).Padding(1, 2).Align(lipgloss.Center).Render("Moon Rollers")
 	menu := ""
 	for i, choice := range m.choices {
