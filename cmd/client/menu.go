@@ -136,8 +136,13 @@ func (m menuModel) View() string {
 		return "Window too small, please resize to something larger."
 	}
 
-	menu := lipgloss.NewStyle().Border(lipgloss.NormalBorder()).Margin(1).Padding(1, 2).Align(lipgloss.Center).Render("Moon Rollers")
-	menu += "\n\n"
+	logoColor := lipgloss.Color("#eb5761ff")
+
+	menuBaseStyle := lipgloss.NewStyle().Foreground(logoColor).BorderForeground(logoColor).Align(lipgloss.Center)
+
+	logo := menuBaseStyle.Width(m.width).Render(mr.MenuLogo)
+	title := menuBaseStyle.Border(lipgloss.NormalBorder()).Margin(1).Padding(1, 2).Align(lipgloss.Center).Render("Moon Rollers")
+	menu := ""
 	for i, choice := range m.choices {
 		sk := strings.Join(choice.shortKeys, "/")
 		if i == 0 {
@@ -151,5 +156,10 @@ func (m menuModel) View() string {
 		}
 	}
 
-	return menu
+	return lipgloss.JoinVertical(
+		lipgloss.Center,
+		logo,
+		title,
+		menuBaseStyle.AlignHorizontal(lipgloss.Left).Render(menu),
+	)
 }
