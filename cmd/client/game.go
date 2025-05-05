@@ -42,15 +42,15 @@ func (m gameModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m gameModel) View() string {
-	cardsBoardStyle := lipgloss.NewStyle().Align(lipgloss.Left)
-	pointsBoardStyle := lipgloss.NewStyle().Width(15).Align(lipgloss.Left).AlignVertical(lipgloss.Center).Border(lipgloss.NormalBorder()).Margin(1)
+	cardsPaneStyle := lipgloss.NewStyle().Align(lipgloss.Left)
+	pointsPaneStyle := lipgloss.NewStyle().Width(15).Align(lipgloss.Left).AlignVertical(lipgloss.Center).Border(lipgloss.NormalBorder()).Margin(1)
 
-	cardsPane := cardsBoardStyle.Render(m.game.RenderCards())
-	pointsBoard := pointsBoardStyle.Render(m.game.RenderPoints())
+	cardsPane := cardsPaneStyle.Render(m.game.RenderCards())
+	pointsPane := pointsPaneStyle.Render(m.game.RenderPoints())
 
 	v := lipgloss.JoinHorizontal(
 		lipgloss.Left,
-		pointsBoard,
+		pointsPane,
 		cardsPane,
 	)
 	// tempDice := style.Align(lipgloss.Left).Render(lipgloss.JoinHorizontal(
