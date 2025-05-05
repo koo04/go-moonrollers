@@ -1,6 +1,9 @@
 package main
 
 import (
+	"fmt"
+	"math/rand"
+
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	mr "github.com/koo04/go-moonrollers"
@@ -47,43 +50,41 @@ func (m gameModel) View() string {
 	pointsPaneStyle := lipgloss.NewStyle().Width(15).Align(lipgloss.Left).AlignVertical(lipgloss.Center).Border(lipgloss.NormalBorder()).Margin(1)
 	dicePaneStyle := lipgloss.NewStyle().Align(lipgloss.Left).Border(lipgloss.NormalBorder()).Margin(1)
 
+	fullPane := lipgloss.NewStyle().Width(m.width).Height(m.height).Align(lipgloss.Center).Margin(1)
+
 	if debug {
-		cardsPaneStyle = cardsPaneStyle.Border(lipgloss.ASCIIBorder()).BorderForeground(lipgloss.Color("205")).Margin(0)
-		pointsPaneStyle = pointsPaneStyle.Border(lipgloss.ASCIIBorder()).BorderForeground(lipgloss.Color("205")).Margin(0)
-		dicePaneStyle = dicePaneStyle.Border(lipgloss.ASCIIBorder()).BorderForeground(lipgloss.Color("205")).Margin(0)
+		cardsPaneStyle = cardsPaneStyle.Border(lipgloss.ASCIIBorder()).BorderForeground(lipgloss.Color(randomColorHash())).Margin(0)
+		pointsPaneStyle = pointsPaneStyle.Border(lipgloss.ASCIIBorder()).BorderForeground(lipgloss.Color(randomColorHash())).Margin(0)
+		dicePaneStyle = dicePaneStyle.Border(lipgloss.ASCIIBorder()).BorderForeground(lipgloss.Color(randomColorHash())).Margin(0)
+
+		fullPane = fullPane.Border(lipgloss.ASCIIBorder()).BorderForeground(lipgloss.Color(randomColorHash())).Margin(0)
 	}
 
 	cardsPane := cardsPaneStyle.Render(m.game.RenderCards())
 	pointsPane := pointsPaneStyle.Render(m.game.RenderPoints())
 	dicePane := dicePaneStyle.Render(m.game.RenderDice())
 
-	v := lipgloss.JoinHorizontal(
-		lipgloss.Left,
-		pointsPane,
-		cardsPane,
-		dicePane,
-	)
-	// tempDice := style.Align(lipgloss.Left).Render(lipgloss.JoinHorizontal(
-	// 	lipgloss.Top,
-	// 	mr.Die["damage"],
-	// 	mr.Die["thruster"],
-	// 	mr.Die["shield"],
-	// 	mr.Die["add"],
-	// 	mr.Die["wild"],
-	// 	mr.Die["reactor"],
-	// 	mr.Die["damage"],
-	// 	mr.Die["thruster"],
-	// 	mr.Die["shield"],
-	// 	mr.Die["add"],
-	// 	mr.Die["wild"],
-	// 	mr.Die["reactor"],
-	// ))
-
-	panes := lipgloss.JoinVertical(
+	boardPanes := lipgloss.JoinVertical(
 		lipgloss.Center,
-		v,
-		// tempDice,
+		lipgloss.JoinHorizontal(
+			lipgloss.Left,
+			pointsPane,
+			cardsPane,
+			dicePane,
+		),
 	)
 
-	return panes
+	return lipgloss.JoinVertical(
+		lipgloss.Left,
+		fullPane.Render(boardPanes),
+		lipgloss.NewStyle().Width(m.width).AlignHorizontal(lipgloss.Left).Foreground(lipgloss.Color("#999999")).Render("Press q to quit"),
+	)
+}
+
+func randomColorHash() string {
+	r := rand.Intn(256)
+	g := rand.Intn(256)
+	b := rand.Intn(256)
+
+	return fmt.Sprintf("#%02X%02X%02X", r, g, b) // Format as hex color
 }
