@@ -1,6 +1,6 @@
 package moonrollers
 
-type turn struct {
+type Turn struct {
 	Id           int
 	Player       *Player
 	SelectedCard *Crew

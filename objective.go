@@ -1,6 +1,8 @@
 package moonrollers
 
-import "github.com/charmbracelet/lipgloss"
+import (
+	"github.com/charmbracelet/lipgloss"
+)
 
 type objectiveType string
 
@@ -13,23 +15,24 @@ const (
 )
 
 type objective struct {
-	Type   objectiveType
-	Amount int
-	Hazard bool
+	Type        objectiveType
+	Amount      int
+	Hazard      bool
+	CompletedBy *Player
 }
 
 func (ot objectiveType) Abbr() string {
 	switch ot {
 	case ObjectiveTypeDamage:
-		return lipgloss.NewStyle().Foreground(factionColors[FactionOrange]).Render("X ")
+		return lipgloss.NewStyle().Foreground(factionColors[FactionOrange]).Render("X")
 	case ObjectiveTypeShield:
-		return lipgloss.NewStyle().Foreground(factionColors[FactionGreen]).Render("# ")
+		return lipgloss.NewStyle().Foreground(factionColors[FactionGreen]).Render("#")
 	case ObjectiveTypeThruster:
-		return lipgloss.NewStyle().Foreground(factionColors[FactionYellow]).Render("> ")
+		return lipgloss.NewStyle().Foreground(factionColors[FactionYellow]).Render("↟")
 	case ObjectiveTypeReactor:
-		return lipgloss.NewStyle().Foreground(factionColors[FactionBlue]).Render("@ ")
+		return lipgloss.NewStyle().Foreground(factionColors[FactionBlue]).Render("@")
 	case ObjectiveTypeWild:
-		return lipgloss.NewStyle().Foreground(lipgloss.Color("#fff")).Render("% ")
+		return lipgloss.NewStyle().Foreground(lipgloss.Color("#fff")).Render("%")
 	default:
 		return ""
 	}

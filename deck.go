@@ -1,6 +1,6 @@
 package moonrollers
 
-var deck = []*Crew{
+var Deck = []*Crew{
 	{
 		Name:    "Aponi",
 		Faction: FactionBlue,
@@ -722,8 +722,4 @@ var deck = []*Crew{
 		},
 		Ability: ability{Description: "If you roll 2+ %thrusters% you may treat 1 of your dice as %extra%."},
 	},
-}
-
-func GetDeck() []*Crew {
-	return deck
 }

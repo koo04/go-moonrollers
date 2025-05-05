@@ -30,14 +30,18 @@ func (c *Crew) Render(selectedObj int) string {
 
 	for _, objective := range c.Objectives {
 		line := " "
-		line += objective.Type.Abbr()
+		line += objective.Type.Abbr() + " "
 		if objective.Hazard {
 			line += lipgloss.NewStyle().Foreground(lipgloss.Color("#ff0000")).Render("!")
 		} else {
 			line += " "
 		}
 		for range objective.Amount {
-			line += "o"
+			if objective.CompletedBy != nil {
+				line += "x"
+			} else {
+				line += "o"
+			}
 		}
 
 		content = append(content, line)
@@ -48,5 +52,6 @@ func (c *Crew) Render(selectedObj int) string {
 		Width(11).
 		Height(7).
 		BorderForeground(lipgloss.Color(factionColors[c.Faction])).
+		// BorderStyle(lipgloss.BlockBorder()).
 		Render(strings.Join(content, "\n"))
 }
