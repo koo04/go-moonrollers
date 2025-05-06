@@ -46,35 +46,41 @@ func (m gameModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m gameModel) View() string {
+	if m.height < 23 || m.width < 102 {
+		return "Window too small, please resize to something larger."
+	}
+
 	cardsPaneStyle := lipgloss.NewStyle().Align(lipgloss.Left).Margin(1)
 	dicePaneStyle := lipgloss.NewStyle().Align(lipgloss.Left).Border(lipgloss.NormalBorder()).Margin(1)
-
-	fullPane := lipgloss.NewStyle().Width(m.width).Height(m.height).Align(lipgloss.Center).Margin(1)
 
 	if debug {
 		cardsPaneStyle = cardsPaneStyle.Border(lipgloss.ASCIIBorder()).BorderForeground(lipgloss.Color(randomColorHash())).Margin(0)
 		dicePaneStyle = dicePaneStyle.Border(lipgloss.ASCIIBorder()).BorderForeground(lipgloss.Color(randomColorHash())).Margin(0)
-
-		fullPane = fullPane.Border(lipgloss.ASCIIBorder()).BorderForeground(lipgloss.Color(randomColorHash())).Margin(0)
 	}
 
 	cardsPane := cardsPaneStyle.Render(m.game.RenderCards())
-	pointsPane := m.game.RenderPoints(debug)
+	pointsPane := m.game.RenderPoints(m.height > 0 && m.height < 40, debug)
 	dicePane := dicePaneStyle.Render(m.game.RenderDice())
 
-	boardPanes := lipgloss.JoinVertical(
-		lipgloss.Center,
-		lipgloss.JoinHorizontal(
-			lipgloss.Left,
-			pointsPane,
-			cardsPane,
-			dicePane,
-		),
+	content := lipgloss.JoinHorizontal(
+		lipgloss.Left,
+		pointsPane,
+		cardsPane,
+		dicePane,
 	)
+
+	boardPanes := lipgloss.JoinVertical(
+		lipgloss.Top,
+		content,
+	)
+	fullPaneStyle := lipgloss.NewStyle().Width(m.width-1).Height(m.height-1).Align(lipgloss.Center, lipgloss.Center).Margin(1)
+	if debug {
+		fullPaneStyle = fullPaneStyle.Width(m.width - 2).Height(m.height - 3).Border(lipgloss.ASCIIBorder()).BorderForeground(lipgloss.Color(randomColorHash())).Margin(0)
+	}
 
 	return lipgloss.JoinVertical(
 		lipgloss.Left,
-		fullPane.Render(boardPanes),
+		fullPaneStyle.Render(boardPanes),
 		lipgloss.NewStyle().Width(m.width).AlignHorizontal(lipgloss.Left).Foreground(lipgloss.Color("#999999")).Render("Press q to quit"),
 	)
 }
@@ -84,5 +90,5 @@ func randomColorHash() string {
 	g := rand.Intn(256)
 	b := rand.Intn(256)
 
-	return fmt.Sprintf("#%02X%02X%02X", r, g, b) // Format as hex color
+	return fmt.Sprintf("#%02X%02X%02X", r, g, b)
 }
