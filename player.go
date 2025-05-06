@@ -16,14 +16,8 @@ type Player struct {
 func NewPlayer(name string, color lipgloss.Color) *Player {
 	return &Player{
 		Name:   name,
-		Points: rand.IntN(50) + 1,
+		Points: rand.IntN(180) + 1,
 		Cards:  make([]*Crew, 0),
 		Color:  color,
 	}
-}
-
-func (p *Player) RenderPoints() string {
-	return lipgloss.NewStyle().
-		Foreground(lipgloss.Color("#00ff00")).
-		Render(p.Name + ": " + strconv.Itoa(p.Points))
 }

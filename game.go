@@ -133,15 +133,6 @@ func (g *Game) RenderCards() string {
 	return lipgloss.JoinVertical(lipgloss.Top, renderedCardsRowOne, renderedCardsRowTwo)
 }
 
-func (g *Game) RenderPoints() string {
-	out := make([]string, 0)
-	for _, p := range g.Players {
-		out = append(out, p.RenderPoints())
-	}
-
-	return lipgloss.JoinVertical(lipgloss.Left, out...)
-}
-
 func (g *Game) RenderDice() string {
 	supplyRender := lipgloss.NewStyle().AlignVertical(lipgloss.Left).MarginRight(5)
 	poolRender := lipgloss.NewStyle().AlignVertical(lipgloss.Center)
