@@ -27,31 +27,40 @@ func (c *Crew) RenderName() string {
 func (c *Crew) Render(selectedObj int) string {
 	content := make([]string, 0)
 	content = append(content, c.RenderName()+"\n")
-
-	for _, objective := range c.Objectives {
-		line := " "
-		line += objective.Type.Abbr() + " "
-		if objective.Hazard {
-			line += lipgloss.NewStyle().Foreground(lipgloss.Color("#ff0000")).Render("!")
-		} else {
-			line += " "
-		}
-		for range objective.Amount {
-			if objective.CompletedBy != nil {
-				line += "x"
-			} else {
-				line += "o"
-			}
-		}
-
-		content = append(content, line)
-	}
+	content = append(content, c.renderObjectives())
 
 	return lipgloss.NewStyle().
 		Border(lipgloss.NormalBorder()).
 		Width(11).
 		Height(7).
 		BorderForeground(lipgloss.Color(factionColors[c.Faction])).
-		// BorderStyle(lipgloss.BlockBorder()).
 		Render(strings.Join(content, "\n"))
+}
+
+func (c *Crew) renderObjectives() string {
+	objectives := make([]string, 0)
+	for _, objective := range c.Objectives {
+		line := " " + objective.Type.Abbr() + " "
+		if objective.Hazard {
+			line += lipgloss.NewStyle().Foreground(lipgloss.Color("#ff0000")).Render("!")
+		} else {
+			line += " "
+		}
+
+		color := lipgloss.Color("#ffffff")
+		if objective.CompletedBy != nil {
+			color = objective.CompletedBy.GetCrewColor()
+		}
+
+		for range objective.Amount {
+			if objective.CompletedBy != nil {
+				line += lipgloss.NewStyle().Foreground(color).Render("■")
+			} else {
+				line += "o"
+			}
+		}
+
+		objectives = append(objectives, line)
+	}
+	return lipgloss.NewStyle().Render(strings.Join(objectives, "\n"))
 }
