@@ -25,7 +25,3 @@ func (p *Player) RenderPoints() string {
 		Foreground(lipgloss.Color("#00ff00")).
 		Render(p.Name + ": " + strconv.Itoa(p.Points))
 }
-
-func (p *Player) GetCrewColor() lipgloss.Color {
-	return lipgloss.Color(factionColors[p.Cards[0].Faction])
-}

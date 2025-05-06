@@ -47,14 +47,9 @@ func (c *Crew) renderObjectives() string {
 			line += " "
 		}
 
-		color := lipgloss.Color("#ffffff")
-		if objective.CompletedBy != nil {
-			color = objective.CompletedBy.GetCrewColor()
-		}
-
 		for range objective.Amount {
 			if objective.CompletedBy != nil {
-				line += lipgloss.NewStyle().Foreground(color).Render("■")
+				line += lipgloss.NewStyle().Render("■")
 			} else {
 				line += "o"
 			}
