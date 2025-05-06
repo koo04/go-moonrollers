@@ -33,8 +33,12 @@ func NewGame(playerCount int) *Game {
 
 func (g *Game) setup(playerCount int) *Game {
 	players := make([]*Player, 0, playerCount)
-	for range playerCount {
-		players = append(players, NewPlayer("Player "+strconv.Itoa(len(players)+1)))
+	for i := range playerCount {
+		color := lipgloss.Color(factionColorsSlice()[i])
+		players = append(players, NewPlayer(
+			"Player "+strconv.Itoa(len(players)+1),
+			color,
+		))
 	}
 
 	supply := make([]*Die, 0, 7)
@@ -127,15 +131,6 @@ func (g *Game) RenderCards() string {
 	renderedCardsRowTwo := lipgloss.JoinHorizontal(lipgloss.Left, rowTwo...)
 
 	return lipgloss.JoinVertical(lipgloss.Top, renderedCardsRowOne, renderedCardsRowTwo)
-}
-
-func (g *Game) RenderPoints() string {
-	out := make([]string, 0)
-	for _, p := range g.Players {
-		out = append(out, p.RenderPoints())
-	}
-
-	return lipgloss.JoinVertical(lipgloss.Left, out...)
 }
 
 func (g *Game) RenderDice() string {
