@@ -19,3 +19,13 @@ var factionColors = map[faction]lipgloss.Color{
 	FactionGreen:  lipgloss.Color("#23741e"),
 	FactionPurple: lipgloss.Color("#ab19a6"),
 }
+
+func factionColorsSlice() []lipgloss.Color {
+	return []lipgloss.Color{
+		factionColors[FactionBlue],
+		factionColors[FactionYellow],
+		factionColors[FactionOrange],
+		factionColors[FactionGreen],
+		factionColors[FactionPurple],
+	}
+}

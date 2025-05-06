@@ -33,8 +33,12 @@ func NewGame(playerCount int) *Game {
 
 func (g *Game) setup(playerCount int) *Game {
 	players := make([]*Player, 0, playerCount)
-	for range playerCount {
-		players = append(players, NewPlayer("Player "+strconv.Itoa(len(players)+1)))
+	for i := range playerCount {
+		color := lipgloss.Color(factionColorsSlice()[i])
+		players = append(players, NewPlayer(
+			"Player "+strconv.Itoa(len(players)+1),
+			color,
+		))
 	}
 
 	supply := make([]*Die, 0, 7)
