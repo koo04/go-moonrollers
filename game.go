@@ -24,7 +24,7 @@ func NewGame(playerCount int) *Game {
 		Id:            1,
 		Turns:         make([]*Turn, 0),
 		CurrentPlayer: 0,
-		Deck:          Deck,
+		Deck:          CopyDeck(),
 		Out:           make([]*Crew, 0, 6),
 	}
 
@@ -48,7 +48,7 @@ func (g *Game) setup(playerCount int) *Game {
 		supply = append(supply, d)
 	}
 	pool := make([]*Die, 0, 12)
-	for range 5 {
+	for range 12 {
 		d := &Die{}
 		d.Roll()
 		pool = append(pool, d)
@@ -145,14 +145,14 @@ func (g *Game) RenderDice() string {
 }
 
 func (g *Game) RenderSupply() string {
-	return g.renderDieGroup(g.Supply, 3)
+	return g.renderDieGroup(g.Supply, 3, false)
 }
 
 func (g *Game) RenderPool() string {
-	return g.renderDieGroup(g.Pool, 4)
+	return g.renderDieGroup(g.Pool, 4, true)
 }
 
-func (g *Game) renderDieGroup(dieGroup []*Die, maxWidth int) string {
+func (g *Game) renderDieGroup(dieGroup []*Die, maxWidth int, useControls bool) string {
 	rowOne := make([]string, 0, maxWidth)
 	rowTwo := make([]string, 0, maxWidth)
 	rowThree := make([]string, 0, maxWidth)
@@ -160,16 +160,32 @@ func (g *Game) renderDieGroup(dieGroup []*Die, maxWidth int) string {
 		if d == nil {
 			continue
 		}
+		out := d.Render()
+		if useControls {
+			var controlLabel string
+			switch i {
+			case 9:
+				controlLabel = "0"
+			case 10:
+				controlLabel = "-"
+			case 11:
+				controlLabel = "+"
+			default:
+				controlLabel = strconv.Itoa(i + 1)
+			}
+			controls := lipgloss.NewStyle().Foreground(lipgloss.Color("#fff")).Render(controlLabel)
+			out = lipgloss.JoinVertical(lipgloss.Center, d.Render(), controls)
+		}
 
 		if i < maxWidth {
-			rowOne = append(rowOne, d.Render())
+			rowOne = append(rowOne, out)
 			continue
 		}
 		if i < maxWidth*2 {
-			rowTwo = append(rowTwo, d.Render())
+			rowTwo = append(rowTwo, out)
 			continue
 		}
-		rowThree = append(rowThree, d.Render())
+		rowThree = append(rowThree, out)
 	}
 
 	renderedRowOne := lipgloss.JoinHorizontal(lipgloss.Left, rowOne...)

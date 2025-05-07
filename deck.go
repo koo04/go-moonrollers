@@ -1,6 +1,6 @@
 package moonrollers
 
-var Deck = []*Crew{
+var Deck = []Crew{
 	{
 		Name:    "Aponi",
 		Faction: FactionBlue,
@@ -722,4 +722,18 @@ var Deck = []*Crew{
 		},
 		Ability: ability{Description: "If you roll 2+ %thrusters% you may treat 1 of your dice as %extra%."},
 	},
+}
+
+func CopyDeck() []*Crew {
+	copiedDeck := make([]*Crew, len(Deck))
+	for i, c := range Deck {
+		copiedDeck[i] = &Crew{
+			Name:       c.Name,
+			Faction:    c.Faction,
+			Objectives: c.Objectives,
+			Ability:    c.Ability,
+			Starter:    c.Starter,
+		}
+	}
+	return copiedDeck
 }

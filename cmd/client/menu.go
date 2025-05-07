@@ -2,12 +2,14 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strings"
 	"time"
 
 	mr "github.com/ascii-arcade/moonrollers"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+	"github.com/charmbracelet/x/term"
 )
 
 type menuChoice struct {
@@ -26,6 +28,9 @@ type menuModel struct {
 }
 
 func (m menuModel) Init() tea.Cmd {
+	w, h, _ := term.GetSize(os.Stdout.Fd())
+	m.height = h
+	m.width = w
 	return tea.Tick(time.Second, func(t time.Time) tea.Msg {
 		return tMsg(t)
 	})
@@ -56,9 +61,13 @@ func newMenuModel() *menuModel {
 				shortKeys: []string{"n"},
 				action: func(m menuModel) (tea.Model, tea.Cmd) {
 					g := mr.NewGame(m.numberOfPlayers)
-					return gameModel{
-						game: g,
-					}, nil
+					w, h, _ := term.GetSize(os.Stdout.Fd())
+					_, _ = tea.NewProgram(gameModel{
+						game:   g,
+						height: h,
+						width:  w,
+					}, tea.WithAltScreen()).Run()
+					return m, nil
 				},
 			},
 			{
@@ -94,7 +103,7 @@ func (m menuModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, tea.Quit
 		case tea.KeyRunes:
 			switch string(msg.Runes) {
-			case "q", "e":
+			case "e":
 				return m, tea.Quit
 			default:
 				for _, choice := range m.choices {

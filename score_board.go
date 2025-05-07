@@ -17,10 +17,22 @@ var (
 	emptyCellStyle = populatedCellStyle.Foreground(lipgloss.Color("#404040"))
 )
 
-func (g *Game) RenderPoints(debug bool) string {
+func (g *Game) RenderPoints(short, debug bool) string {
 	style := lipgloss.NewStyle().Margin(1)
 	if debug {
 		style = style.Border(lipgloss.ASCIIBorder()).Margin(0)
+	}
+
+	if short {
+		out := make([]string, 0)
+		for _, p := range g.Players {
+			points := lipgloss.NewStyle().
+				Foreground(lipgloss.Color(p.Color)).
+				Render(p.Name + ": " + strconv.Itoa(p.Points))
+			out = append(out, points)
+		}
+
+		return lipgloss.JoinVertical(lipgloss.Left, style.Padding(1).Render(strings.Join(out, "\n")))
 	}
 
 	rows := make([]string, 0)
