@@ -157,7 +157,6 @@ func (g *Game) renderDieGroup(dieGroup []*Die, maxWidth int) string {
 	rowTwo := make([]string, 0, maxWidth)
 	rowThree := make([]string, 0, maxWidth)
 	for i, d := range dieGroup {
-
 		switch {
 		case d == nil:
 			continue
