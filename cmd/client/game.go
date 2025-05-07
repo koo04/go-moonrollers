@@ -83,7 +83,7 @@ func (m gameModel) View() string {
 	controlsPaneStyle := lipgloss.NewStyle().AlignHorizontal(lipgloss.Left).MarginRight(1).MarginLeft(1).Foreground(lipgloss.Color("#999999"))
 	controls := []string{
 		controlsPaneStyle.Render("Press q to quit"),
-		controlsPaneStyle.Render("1=X, 2=#, 3=+, 5=@, 4=↟, 6=%"),
+		controlsPaneStyle.Render("1=X, 2=#, 3=+, 4=↟, 5=@, 6=%"),
 	}
 
 	return lipgloss.JoinVertical(
