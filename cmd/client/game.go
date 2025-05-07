@@ -59,7 +59,8 @@ func (m gameModel) View() string {
 	}
 
 	cardsPane := cardsPaneStyle.Render(m.game.RenderCards())
-	pointsPane := m.game.RenderPoints(m.height > 0 && m.height < 40, debug)
+	smallPointsPane := (m.height > 0 && m.height < 40) || m.width < 125
+	pointsPane := m.game.RenderPoints(smallPointsPane, debug)
 	dicePane := dicePaneStyle.Render(m.game.RenderDice())
 
 	content := lipgloss.JoinHorizontal(
