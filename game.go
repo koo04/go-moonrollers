@@ -145,47 +145,29 @@ func (g *Game) RenderDice() string {
 }
 
 func (g *Game) RenderSupply() string {
-	return g.renderDieGroup(g.Supply, 3, false)
+	return g.renderDieGroup(g.Supply, 3)
 }
 
 func (g *Game) RenderPool() string {
-	return g.renderDieGroup(g.Pool, 4, true)
+	return g.renderDieGroup(g.Pool, 4)
 }
 
-func (g *Game) renderDieGroup(dieGroup []*Die, maxWidth int, useControls bool) string {
+func (g *Game) renderDieGroup(dieGroup []*Die, maxWidth int) string {
 	rowOne := make([]string, 0, maxWidth)
 	rowTwo := make([]string, 0, maxWidth)
 	rowThree := make([]string, 0, maxWidth)
 	for i, d := range dieGroup {
-		if d == nil {
-			continue
-		}
-		out := d.Render()
-		if useControls {
-			var controlLabel string
-			switch i {
-			case 9:
-				controlLabel = "0"
-			case 10:
-				controlLabel = "-"
-			case 11:
-				controlLabel = "+"
-			default:
-				controlLabel = strconv.Itoa(i + 1)
-			}
-			controls := lipgloss.NewStyle().Foreground(lipgloss.Color("#fff")).Render(controlLabel)
-			out = lipgloss.JoinVertical(lipgloss.Center, d.Render(), controls)
-		}
 
-		if i < maxWidth {
-			rowOne = append(rowOne, out)
+		switch {
+		case d == nil:
 			continue
+		case i < maxWidth:
+			rowOne = append(rowOne, d.Render())
+		case i < maxWidth*2:
+			rowTwo = append(rowTwo, d.Render())
+		default:
+			rowThree = append(rowThree, d.Render())
 		}
-		if i < maxWidth*2 {
-			rowTwo = append(rowTwo, out)
-			continue
-		}
-		rowThree = append(rowThree, out)
 	}
 
 	renderedRowOne := lipgloss.JoinHorizontal(lipgloss.Left, rowOne...)
