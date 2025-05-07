@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"strings"
 
 	mr "github.com/ascii-arcade/moonrollers"
 	tea "github.com/charmbracelet/bubbletea"
@@ -79,10 +80,16 @@ func (m gameModel) View() string {
 		fullPaneStyle = fullPaneStyle.Width(m.width - 2).Height(m.height - 3).Border(lipgloss.ASCIIBorder()).BorderForeground(lipgloss.Color(randomColorHash())).Margin(0)
 	}
 
+	controlsPaneStyle := lipgloss.NewStyle().AlignHorizontal(lipgloss.Left).MarginRight(1).MarginLeft(1).Foreground(lipgloss.Color("#999999"))
+	controls := []string{
+		controlsPaneStyle.Render("Press q to quit"),
+		controlsPaneStyle.Render("1=X, 2=#, 3=+, 4=↟, 5=@, 6=%"),
+	}
+
 	return lipgloss.JoinVertical(
 		lipgloss.Left,
 		fullPaneStyle.Render(boardPanes),
-		lipgloss.NewStyle().Width(m.width).AlignHorizontal(lipgloss.Left).Foreground(lipgloss.Color("#999999")).Render("Press q to quit"),
+		strings.Join(controls, controlsPaneStyle.Render("|")),
 	)
 }
 
